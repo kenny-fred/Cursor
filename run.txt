@@ -1,0 +1,52 @@
+# Créer l'environnement virtuel pour python
+python -m venv .venv
+
+
+# Activez l'environnement nouvellement créé
+.\.venv\Scripts\Activate.ps1
+
+
+# S'assurer que le gestionnaire de paquets est à jour
+python -m pip install --upgrade pip
+
+
+# Installer les bibliothèques requises
+pip install opencv-python mediapipe numpy pygaze
+
+
+# Pour désactiver la protection Windows en écriture
+# dans le dossier Documents par python
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\WINDOWS\system32> cd "C:\Users\kenny\Documents\Freelance\Cursor"
+PS C:\Users\kenny\Documents\Freelance\Cursor> Set-MpPreference -EnableControlledFolderAccess Disabled
+PS C:\Users\kenny\Documents\Freelance\Cursor> Add-MpPreference -ControlledFolderAccessAllowedApplications "C:\Users\kenny\Documents\Freelance\Cursor\v2\.venv\Scripts\python.exe"
+
+
+# activer l'environnement virtuel
+.\.venv\Scripts\Activate.ps1
+
+
+# Exporter en app .exe pour la 1ère fois
+pyinstaller --noconsole --onefile --hidden-import=mediapipe --add-data "models/face_landmarker.task;models" --add-data "icon.png;." cursor.py
+
+
+# Exporter en app .exe pour la 2ème fois
+pyinstaller cursor.spec
+
+
+# Tester la caméra du pc
+python 1_cam_test.py
+
+
+# Tester le masque mediapipe
+python 2_eye_test.py
+
+
+# Proposition de calibration
+python 3_accuracy.py
+
+
+# Test de l'état de calibration
+python 5_calib_test.py 
